@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: #0a0c0f;
+  color: #e6e9ee;
+}
+
+/* Link do cliente: claro, com cara de documento */
+.tema-cliente {
+  color-scheme: light;
+  background: #f4f6f9;
+  color: #111827;
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
+.sem-barra {
+  scrollbar-width: none;
+}
+.sem-barra::-webkit-scrollbar {
+  display: none;
+}
