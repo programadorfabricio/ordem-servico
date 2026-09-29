@@ -21,7 +21,7 @@ export default async function PaginaEquipe() {
 
   return (
     <>
-      <Titulo sub="Um login para cada pessoa. O nome aparece na OS e no histórico.">Equipe</Titulo>
+      <Titulo sub="Um login para cada pessoa. O nome aparece na ordem de serviço e no histórico.">Equipe</Titulo>
       {!admin && <Aviso>Falta a SUPABASE_SECRET_KEY na Vercel: sem ela não dá para criar logins.</Aviso>}
       <GerenciarEquipe acessos={acessos} />
     </>

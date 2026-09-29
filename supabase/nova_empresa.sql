@@ -1,5 +1,5 @@
 -- =============================================================
--- OS FH - cadastrar um cliente novo
+-- Ordem de Serviço FH - cadastrar um cliente novo
 -- 1) Authentication > Users > Add user > Create new user
 --    (e-mail do dono + senha, marque "Auto Confirm User")
 -- 2) Preencha as linhas abaixo e clique em "Run"

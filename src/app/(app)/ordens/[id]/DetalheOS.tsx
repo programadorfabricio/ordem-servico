@@ -94,9 +94,9 @@ export default function DetalheOS({
   const link = `${origem}/o/${ordem.token}`;
   const primeiroNome = (ordem.cliente?.nome ?? "").split(" ")[0];
   const tel = ordem.cliente?.telefone ?? "";
-  const msgOrcamento = `Olá, ${primeiroNome}! Aqui é da ${empresa.nome}. O orçamento da OS #${ordem.numero} (${ordem.equipamento}) ficou em ${dinheiro(total)}. Veja os detalhes e aprove pelo link: ${link}`;
-  const msgPronta = `Olá, ${primeiroNome}! Seu ${ordem.equipamento} está pronto para retirar na ${empresa.nome}.${falta > 0 ? ` Valor a pagar: ${dinheiro(falta)}.` : ""} Detalhes da OS #${ordem.numero}: ${link}`;
-  const msgAcompanhar = `Olá, ${primeiroNome}! Acompanhe a OS #${ordem.numero} (${ordem.equipamento}) da ${empresa.nome} por aqui: ${link}`;
+  const msgOrcamento = `Olá, ${primeiroNome}! Aqui é da ${empresa.nome}. O orçamento da ordem de serviço nº ${ordem.numero} (${ordem.equipamento}) ficou em ${dinheiro(total)}. Veja os detalhes e aprove pelo link: ${link}`;
+  const msgPronta = `Olá, ${primeiroNome}! Seu ${ordem.equipamento} está pronto para retirar na ${empresa.nome}.${falta > 0 ? ` Valor a pagar: ${dinheiro(falta)}.` : ""} Detalhes da ordem de serviço nº ${ordem.numero}: ${link}`;
+  const msgAcompanhar = `Olá, ${primeiroNome}! Acompanhe a ordem de serviço nº ${ordem.numero} (${ordem.equipamento}) da ${empresa.nome} por aqui: ${link}`;
 
   const sb = () => criarClienteNavegador();
 
@@ -201,7 +201,7 @@ export default function DetalheOS({
     acoes.unshift({ nome: "Entregar e receber", principal: true, fazer: () => setModal("entregar") });
     acoes.splice(1, 0, { nome: "Avisar cliente no WhatsApp", fazer: () => abrirWhats(msgPronta) });
   }
-  if (balcao && !final && !pagamentos.length) acoes.push({ nome: "Cancelar OS", perigo: true, fazer: () => setModal("cancelar") });
+  if (balcao && !final && !pagamentos.length) acoes.push({ nome: "Cancelar ordem", perigo: true, fazer: () => setModal("cancelar") });
 
   const atrasada = ordem.previsao && ordem.previsao < hojeSP() && ["aprovada", "andamento", "peca"].includes(status);
   const podeReceber = balcao && ["aprovada", "andamento", "peca", "pronta", "entregue"].includes(status) && falta > 0;
@@ -215,7 +215,7 @@ export default function DetalheOS({
             ← Ordens
           </Link>
           <h1 className="mt-1 flex flex-wrap items-center gap-2 text-xl font-semibold">
-            OS #{ordem.numero} <Selo status={status} />
+            Ordem de serviço nº {ordem.numero} <Selo status={status} />
             {atrasada && <span className="rounded-full bg-rose-500/15 px-2.5 py-0.5 text-xs text-rose-300">Atrasada</span>}
           </h1>
           <p className="text-sm text-zinc-400">
@@ -278,7 +278,7 @@ export default function DetalheOS({
           onRecusar={(motivo) => mudar("recusada", motivo)}
           onCancelar={(motivo) => mudar("cancelada", motivo)}
           onEntregar={(pags, texto) =>
-            executar(() => sb().rpc("entregar_os", { p_os: ordem.id, p_pagamentos: pags, p_texto: texto }), status === "recusada" ? "Devolvido ao cliente." : "OS entregue.")
+            executar(() => sb().rpc("entregar_os", { p_os: ordem.id, p_pagamentos: pags, p_texto: texto }), status === "recusada" ? "Devolvido ao cliente." : "Serviço entregue.")
           }
           onReceber={(forma, valor) => executar(() => sb().rpc("registrar_pagamento", { p_os: ordem.id, p_forma: forma, p_valor: valor }), "Pagamento registrado.")}
         />
@@ -295,7 +295,7 @@ export default function DetalheOS({
               </div>
               {balcao && (
                 <Link href={`/ordens?cliente=${ordem.cliente?.id}`} className="text-sm text-sky-300 hover:underline">
-                  Outras OS
+                  Outras ordens
                 </Link>
               )}
             </div>
@@ -595,7 +595,7 @@ function Historico({ empresaId, ordemId, eventos, final }: { empresaId: string; 
             {ev.foto && (
               <a href={urlFoto(ev.foto)} target="_blank" className="mt-1 block">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={urlFoto(ev.foto)} alt="Foto da OS" className="max-h-48 rounded-lg border border-white/10 object-cover" loading="lazy" />
+                <img src={urlFoto(ev.foto)} alt="Foto do serviço" className="max-h-48 rounded-lg border border-white/10 object-cover" loading="lazy" />
               </a>
             )}
             <p className="text-xs text-zinc-500">
@@ -670,7 +670,7 @@ function Janela(props: {
   const titulo = {
     aprovar: "Cliente aprovou o orçamento",
     recusar: "Cliente recusou o orçamento",
-    cancelar: "Cancelar esta OS",
+    cancelar: "Cancelar esta ordem de serviço",
     entregar: ordem.status === "recusada" ? "Devolver ao cliente" : "Entregar e receber",
     receber: "Receber pagamento",
     enviar: "Orçamento pronto para o cliente",
@@ -723,7 +723,7 @@ function Janela(props: {
             {total > 0 ? (
               <>
                 <div className="space-y-1 rounded-lg bg-black/30 p-3 text-sm">
-                  <div className="flex justify-between"><span>Total da OS</span><span className="tabular-nums">{dinheiro(total)}</span></div>
+                  <div className="flex justify-between"><span>Total</span><span className="tabular-nums">{dinheiro(total)}</span></div>
                   {pago > 0 && <div className="flex justify-between text-zinc-400"><span>Já recebido</span><span className="tabular-nums">− {dinheiro(pago)}</span></div>}
                   <div className="flex justify-between font-semibold"><span>Falta</span><span className="tabular-nums">{dinheiro(falta)}</span></div>
                 </div>
@@ -783,7 +783,7 @@ function Janela(props: {
               }}
               className={modal === "cancelar" ? "rounded-lg bg-rose-500 px-4 py-2 text-sm font-semibold text-black disabled:opacity-50" : botao}
             >
-              {ocupado ? "Salvando..." : modal === "cancelar" ? "Cancelar OS" : "Confirmar"}
+              {ocupado ? "Salvando..." : modal === "cancelar" ? "Cancelar ordem" : "Confirmar"}
             </button>
             <button onClick={fechar} className={botaoSec}>
               Voltar

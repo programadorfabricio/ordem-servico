@@ -120,7 +120,7 @@ export default function GerenciarClientes({ empresaId, clientes }: { empresaId: 
               </p>
             </div>
             <Link href={`/ordens?cliente=${c.id}`} className="text-sm text-sky-300 hover:underline">
-              {c.qtd} OS
+              {c.qtd} {c.qtd === 1 ? "ordem" : "ordens"}
             </Link>
             {c.telefone && (
               <a href={linkWhats(c.telefone, `Olá, ${c.nome.split(" ")[0]}!`)} target="_blank" rel="noopener" className={botaoSec}>

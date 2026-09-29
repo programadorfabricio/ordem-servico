@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OS FH",
+  title: "Ordem de Serviço FH",
   description: "Ordem de serviço e orçamento com aprovação pelo link",
 };
 

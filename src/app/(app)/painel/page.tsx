@@ -88,9 +88,9 @@ export default async function PaginaPainel({ searchParams }: { searchParams: Pro
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Cartao titulo="Recebido no período" valor={dinheiro(p.recebido)} destaque detalhe={Object.entries(p.por_forma).map(([f, v]) => `${FORMAS[f] ?? f} ${dinheiro(v)}`).join(" · ") || "—"} />
-            <Cartao titulo="Serviços entregues" valor={p.entregues} detalhe={`${dinheiro(p.faturado)} em OS entregues`} />
+            <Cartao titulo="Serviços entregues" valor={p.entregues} detalhe={`${dinheiro(p.faturado)} em serviços entregues`} />
             <Cartao titulo="Aprovação de orçamentos" valor={aprovacao == null ? "—" : `${aprovacao}%`} detalhe={`${p.aprovados} de ${p.enviados} enviados · ${p.recusados} recusados`} />
-            <Cartao titulo="A receber (fiado)" valor={dinheiro(p.a_receber)} detalhe={`${comSaldo.length} OS entregues com saldo`} />
+            <Cartao titulo="A receber (fiado)" valor={dinheiro(p.a_receber)} detalhe={`${comSaldo.length} ${comSaldo.length === 1 ? "serviço entregue" : "serviços entregues"} com saldo`} />
           </div>
 
           <Bloco titulo={`Abertas agora: ${abertas}`}>
@@ -102,9 +102,9 @@ export default async function PaginaPainel({ searchParams }: { searchParams: Pro
                     <Selo status={s} /> <b className="tabular-nums">{p.por_status[s]}</b>
                   </span>
                 ))}
-              {abertas === 0 && <p className="text-sm text-zinc-500">Nenhuma OS aberta.</p>}
+              {abertas === 0 && <p className="text-sm text-zinc-500">Nenhuma ordem aberta.</p>}
             </div>
-            <p className="mt-2 text-xs text-zinc-500">{p.abertas_periodo} OS abertas no período.</p>
+            <p className="mt-2 text-xs text-zinc-500">{p.abertas_periodo} ordens abertas no período.</p>
           </Bloco>
 
           <div className="grid gap-4 lg:grid-cols-3">

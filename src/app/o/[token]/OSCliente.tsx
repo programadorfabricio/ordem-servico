@@ -239,11 +239,11 @@ export default function OSCliente({ token, os }: { token: string; os: OSPublica 
           {os.empresa.termos && <p className="whitespace-pre-wrap">{os.empresa.termos}</p>}
           {os.empresa.endereco && <p>{os.empresa.endereco}</p>}
           {os.empresa.telefone && (
-            <a href={linkWhats(os.empresa.telefone, `Olá! Sobre a OS nº ${os.numero} (${os.equipamento}):`)} target="_blank" className="inline-block rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white">
+            <a href={linkWhats(os.empresa.telefone, `Olá! Sobre a ordem de serviço nº ${os.numero} (${os.equipamento}):`)} target="_blank" className="inline-block rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white">
               Falar com a {os.empresa.nome}
             </a>
           )}
-          <p className="pt-2 text-gray-400">OS FH · FH Digital</p>
+          <p className="pt-2 text-gray-400">Ordem de Serviço FH · FH Digital</p>
         </footer>
       </div>
     </main>

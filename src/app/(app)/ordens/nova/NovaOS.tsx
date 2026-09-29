@@ -147,7 +147,7 @@ export default function NovaOS({ clientes, equipe, clienteInicial }: { clientes:
       <div className="space-y-3 lg:col-span-2">
         {erro && <Aviso>{erro}</Aviso>}
         <button disabled={salvando} className={`${botao} w-full sm:w-auto`}>
-          {salvando ? "Abrindo..." : "Abrir OS"}
+          {salvando ? "Abrindo..." : "Abrir ordem de serviço"}
         </button>
       </div>
     </form>

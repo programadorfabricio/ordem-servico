@@ -34,7 +34,7 @@ export async function criarAcesso(form: { papel: Papel; nome: string; usuario: s
       return { erro: "Usuário: de 3 a 30 letras minúsculas, números, ponto ou traço. Sem espaço e sem acento." };
     }
     const minimo = papel === "gerente" ? 8 : 6;
-    if (nome.length < 2) return { erro: "Informe o nome da pessoa (aparece na OS)." };
+    if (nome.length < 2) return { erro: "Informe o nome da pessoa (aparece na ordem de serviço)." };
     if (form.senha.length < minimo) return { erro: `A senha precisa ter pelo menos ${minimo} caracteres.` };
 
     const { data, error } = await admin.auth.admin.createUser({ email: emailDoUsuario(usuario), password: form.senha, email_confirm: true });

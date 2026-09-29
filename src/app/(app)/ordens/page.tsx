@@ -70,11 +70,11 @@ export default async function PaginaOrdens({ searchParams }: { searchParams: Pro
     <>
       <AtualizarAoVivo empresaId={empresa.id} tabelas={["ordens", "os_pagamentos"]} />
       <Titulo
-        sub={sp.cliente ? "Ordens deste cliente" : "Toque numa OS para abrir."}
+        sub={sp.cliente ? "Ordens deste cliente" : "Toque numa ordem para abrir."}
         acao={
           ehBalcao(papel) && (
             <Link href="/ordens/nova" className={botao}>
-              + Nova OS
+              + Nova ordem de serviço
             </Link>
           )
         }
@@ -113,7 +113,7 @@ export default async function PaginaOrdens({ searchParams }: { searchParams: Pro
         </nav>
       )}
 
-      {linhas.length === 0 && <p className="rounded-xl border border-white/10 p-6 text-center text-sm text-zinc-500">Nenhuma OS aqui.</p>}
+      {linhas.length === 0 && <p className="rounded-xl border border-white/10 p-6 text-center text-sm text-zinc-500">Nenhuma ordem aqui.</p>}
 
       <div className="space-y-2">
         {linhas.map((l) => {

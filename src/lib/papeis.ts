@@ -3,8 +3,8 @@ export type Papel = "dono" | "gerente" | "atendente" | "tecnico";
 export const PAPEIS: { papel: Papel; nome: string; tela: string; explica: string }[] = [
   { papel: "dono", nome: "Dono", tela: "/painel", explica: "Vê tudo, cadastra a equipe e as configurações" },
   { papel: "gerente", nome: "Gerente", tela: "/painel", explica: "Vê tudo, menos equipe e configurações" },
-  { papel: "atendente", nome: "Atendente / Balcão", tela: "/ordens", explica: "Abre OS, faz orçamento, entrega e recebe" },
-  { papel: "tecnico", nome: "Técnico / Mecânico", tela: "/ordens", explica: "Vê as OS, anota o diagnóstico, marca andamento e pronto" },
+  { papel: "atendente", nome: "Atendente / Balcão", tela: "/ordens", explica: "Abre a ordem de serviço, faz orçamento, entrega e recebe" },
+  { papel: "tecnico", nome: "Técnico / Mecânico", tela: "/ordens", explica: "Vê as ordens, anota o diagnóstico, marca andamento e pronto" },
 ];
 
 export const nomePapel = (p: string | null | undefined) => PAPEIS.find((x) => x.papel === p)?.nome ?? "—";

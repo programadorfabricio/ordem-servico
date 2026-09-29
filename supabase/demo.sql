@@ -1,6 +1,6 @@
 -- =============================================================
--- OS FH - dados de demonstração (catálogo de oficina de motos)
--- Rode depois do nova_empresa.sql. Rodar de novo apaga as OS da
+-- Ordem de Serviço FH - dados de demonstração (catálogo de oficina de motos)
+-- Rode depois do nova_empresa.sql. Rodar de novo apaga as ordens da
 -- conta de demonstração e recria o catálogo.
 -- =============================================================
 do $$

@@ -128,7 +128,7 @@ export default async function ImprimirOS({ params }: { params: Promise<{ id: str
         <div className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={qr} alt="QR do link" className="h-24 w-24" />
-          <p className="max-w-[14rem] text-xs">Aponte a câmera do celular para acompanhar a OS{ehOrcamento ? " e aprovar o orçamento" : ""}.</p>
+          <p className="max-w-[14rem] text-xs">Aponte a câmera do celular para acompanhar o serviço{ehOrcamento ? " e aprovar o orçamento" : ""}.</p>
         </div>
         <div className="w-60 space-y-0.5">
           <div className="flex justify-between">

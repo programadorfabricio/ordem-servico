@@ -1,5 +1,5 @@
 -- =============================================================
--- OS FH - FH Digital
+-- Ordem de Serviço FH - FH Digital
 -- Ordem de serviço e orçamento para oficinas, assistência técnica
 -- e prestadores (ar-condicionado, eletrônicos, motos, carros...).
 -- Cole tudo no SQL Editor do Supabase (projeto NOVO) e clique em "Run".
@@ -310,7 +310,7 @@ declare
   o ordens := _minha_os(p_os, u.empresa_id);
   v_desc numeric := round(coalesce(p_desconto, 0), 2);
 begin
-  if o.status in ('entregue','cancelada') then raise exception 'Esta OS já foi encerrada.'; end if;
+  if o.status in ('entregue','cancelada') then raise exception 'Esta ordem de serviço já foi encerrada.'; end if;
   if u.papel = 'tecnico' then
     -- técnico só mexe no diagnóstico
     update ordens set diagnostico = trim(coalesce(p_diagnostico, '')), atualizado_em = now() where id = o.id;
@@ -412,7 +412,7 @@ begin
     raise exception 'Coloque pelo menos um item no orçamento.';
   end if;
   if p_status = 'cancelada' and exists (select 1 from os_pagamentos where ordem_id = o.id) then
-    raise exception 'Esta OS tem pagamento registrado. Estorne com o cliente antes de cancelar.';
+    raise exception 'Esta ordem tem pagamento registrado. Estorne com o cliente antes de cancelar.';
   end if;
 
   update ordens set
@@ -462,13 +462,13 @@ declare
   v_total numeric;
   v_valor numeric := round(coalesce(p_valor, 0), 2);
 begin
-  if o.status in ('cancelada') then raise exception 'Esta OS foi cancelada.'; end if;
+  if o.status in ('cancelada') then raise exception 'Esta ordem de serviço foi cancelada.'; end if;
   if o.status in ('orcamento','aguardando','recusada') then raise exception 'Aprove o orçamento antes de receber.'; end if;
   if v_valor <= 0 then raise exception 'Informe o valor.'; end if;
   if p_forma not in ('pix','credito','debito','dinheiro','boleto','outro') then raise exception 'Forma de pagamento inválida.'; end if;
   v_total := _subtotal(o.id) - o.desconto;
   if _pago(o.id) + v_valor > v_total then
-    raise exception 'O valor passa do total da OS. Falta receber %.', replace(to_char(v_total - _pago(o.id), 'FM999999990.00'), '.', ',');
+    raise exception 'O valor passa do total. Falta receber %.', replace(to_char(v_total - _pago(o.id), 'FM999999990.00'), '.', ',');
   end if;
   insert into os_pagamentos (empresa_id, ordem_id, forma, valor, user_id) values (o.empresa_id, o.id, p_forma, v_valor, auth.uid());
   perform _evento(o, 'nota', null, 'Pagamento recebido: R$ ' || replace(to_char(v_valor, 'FM999999990.00'), '.', ','), false, null, u.nome);
@@ -487,7 +487,7 @@ declare
   v_soma numeric := 0;
   v_valor numeric;
 begin
-  if o.status not in ('pronta','recusada') then raise exception 'Marque a OS como pronta antes de entregar.'; end if;
+  if o.status not in ('pronta','recusada') then raise exception 'Marque como pronta antes de entregar.'; end if;
   v_total := case when o.status = 'recusada' then 0 else _subtotal(o.id) - o.desconto end;
 
   for pg in select * from jsonb_array_elements(coalesce(p_pagamentos, '[]'::jsonb)) loop
@@ -497,7 +497,7 @@ begin
     v_soma := v_soma + v_valor;
     insert into os_pagamentos (empresa_id, ordem_id, forma, valor, user_id) values (o.empresa_id, o.id, pg->>'forma', v_valor, auth.uid());
   end loop;
-  if _pago(o.id) > v_total then raise exception 'O pagamento passa do total da OS.'; end if;
+  if _pago(o.id) > v_total then raise exception 'O pagamento passa do total.'; end if;
 
   update ordens set status = 'entregue', entregue_em = now(), sem_servico = (o.status = 'recusada'), atualizado_em = now() where id = o.id;
   perform _evento(o, 'status', 'entregue',

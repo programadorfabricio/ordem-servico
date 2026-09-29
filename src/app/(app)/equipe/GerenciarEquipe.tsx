@@ -86,7 +86,7 @@ export default function GerenciarEquipe({ acessos }: { acessos: Acesso[] }) {
           </select>
         </label>
         <label className="block space-y-1">
-          <span className="text-xs text-zinc-400">Nome (aparece na OS, ex.: Lucas)</span>
+          <span className="text-xs text-zinc-400">Nome (aparece na ordem, ex.: Lucas)</span>
           <input value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} className={campo} maxLength={40} />
         </label>
         <label className="block space-y-1">

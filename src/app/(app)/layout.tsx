@@ -12,7 +12,7 @@ export default async function LayoutApp({ children }: { children: React.ReactNod
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:gap-6">
           <div className="flex items-center justify-between gap-3 sm:contents">
             <div className="min-w-0">
-              <p className="text-xs text-sky-400">OS FH{nome ? ` · ${nome}` : ""}</p>
+              <p className="text-xs text-sky-400">Ordem de Serviço FH{nome ? ` · ${nome}` : ""}</p>
               <p className="truncate font-semibold leading-tight">{empresa.nome}</p>
             </div>
             <div className="flex items-center gap-2 sm:order-last sm:ml-auto">

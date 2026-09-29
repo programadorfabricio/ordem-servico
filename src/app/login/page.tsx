@@ -30,7 +30,7 @@ export default function Login() {
     <main className="flex min-h-screen items-center justify-center px-4">
       <form onSubmit={entrar} className="w-full max-w-sm space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">OS FH</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Ordem de Serviço FH</p>
           <h1 className="mt-1 text-xl font-semibold">Entrar</h1>
           <p className="text-sm text-zinc-400">Dono: e-mail. Equipe: o usuário que o dono criou.</p>
         </div>

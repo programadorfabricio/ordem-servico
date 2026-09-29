@@ -14,7 +14,7 @@ export default async function PaginaClientes() {
   const clientes = (data ?? []).map((c) => ({ ...c, qtd: (c.ordens as unknown as { count: number }[])?.[0]?.count ?? 0 })) as Cliente[];
   return (
     <>
-      <Titulo sub={`${clientes.length} cliente${clientes.length === 1 ? "" : "s"}. O cadastro também é feito ao abrir uma OS.`}>Clientes</Titulo>
+      <Titulo sub={`${clientes.length} cliente${clientes.length === 1 ? "" : "s"}. O cadastro também é feito ao abrir uma ordem de serviço.`}>Clientes</Titulo>
       <GerenciarClientes empresaId={empresa.id} clientes={clientes} />
     </>
   );
